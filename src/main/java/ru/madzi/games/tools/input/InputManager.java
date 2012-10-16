@@ -106,6 +106,15 @@ public class InputManager extends AbstractManager {
         }
     }
 
+    public void clearAllMaps() {
+        for (int keyCode = 0; keyCode < keyActions.length; ++keyCode) {
+            keyActions[keyCode] = null;
+        }
+        for (int mouseCode = 0; mouseCode < mouseActions.length; ++mouseCode) {
+            mouseActions[mouseCode] = null;
+        }
+    }
+
     public static String getKeyName(int keyCode) {
         return Keyboard.getKeyName(keyCode);
     }

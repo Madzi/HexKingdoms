@@ -50,7 +50,7 @@ public class StageManager {
         if (currentStage != null) {
             currentStage.stop();
         }
-        inputManager.clearAllMaps();
+        inputManager.resetAllActions();
         if (Stage.EXIT.equals(name)) {
             done = true;
         } else {
