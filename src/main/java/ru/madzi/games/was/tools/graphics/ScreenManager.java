@@ -1,9 +1,10 @@
-package ru.madzi.games.tools.graphics;
+package ru.madzi.games.was.tools.graphics;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import ru.madzi.games.tools.common.AbstractManager;
+
+import ru.madzi.games.was.tools.common.AbstractManager;
 
 /**
  * @author Dmitry Eliseev (deliseev@madzi.ru)

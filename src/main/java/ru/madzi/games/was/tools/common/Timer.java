@@ -1,4 +1,4 @@
-package ru.madzi.games.tools.common;
+package ru.madzi.games.was.tools.common;
 
 import org.lwjgl.Sys;
 

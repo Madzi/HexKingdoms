@@ -1,4 +1,4 @@
-package ru.madzi.games.tools.input;
+package ru.madzi.games.was.tools.input;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;

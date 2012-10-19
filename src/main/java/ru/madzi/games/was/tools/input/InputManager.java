@@ -1,4 +1,4 @@
-package ru.madzi.games.tools.input;
+package ru.madzi.games.was.tools.input;
 
 import java.util.*;
 
@@ -7,7 +7,7 @@ import org.lwjgl.input.Controller;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import ru.madzi.games.tools.action.Action;
-import ru.madzi.games.tools.common.AbstractManager;
+import ru.madzi.games.was.tools.common.AbstractManager;
 
 public class InputManager extends AbstractManager {
 
@@ -39,7 +39,6 @@ public class InputManager extends AbstractManager {
     private Action[] mouseActions;
     private Action[] joyActions;
 
-    @Override
     public void init() {
         keyActions = new Action[Keyboard.KEYBOARD_SIZE];
         mouseActions = new Action[MOUSE_SIZE];
@@ -51,7 +50,6 @@ public class InputManager extends AbstractManager {
         }
     }
 
-    @Override
     public void done() {
         Mouse.destroy();
         Keyboard.destroy();

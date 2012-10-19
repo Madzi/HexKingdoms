@@ -1,10 +1,11 @@
-package ru.madzi.games.tools.common;
+package ru.madzi.games.was.tools.common;
 
 import org.lwjgl.opengl.Display;
-import ru.madzi.games.tools.graphics.ScreenManager;
-import ru.madzi.games.tools.input.InputManager;
-import ru.madzi.games.tools.stage.Stage;
-import ru.madzi.games.tools.stage.StageManager;
+
+import ru.madzi.games.was.tools.graphics.ScreenManager;
+import ru.madzi.games.was.tools.input.InputManager;
+import ru.madzi.games.was.tools.stage.Stage;
+import ru.madzi.games.was.tools.stage.StageManager;
 
 import javax.xml.ws.Dispatch;
 

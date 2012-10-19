@@ -1,4 +1,4 @@
-package ru.madzi.games.tools.input;
+package ru.madzi.games.was.tools.input;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import ru.madzi.games.tools.action.Action;
-import ru.madzi.games.tools.common.Managerable;
+import ru.madzi.games.was.tools.common.Managerable;
 
 public abstract class AbstractDevice implements Managerable {
 

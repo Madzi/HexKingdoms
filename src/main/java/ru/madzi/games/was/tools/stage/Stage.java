@@ -1,8 +1,8 @@
-package ru.madzi.games.tools.stage;
+package ru.madzi.games.was.tools.stage;
 
-import ru.madzi.games.tools.common.ResourceManager;
-import ru.madzi.games.tools.graphics.ScreenManager;
-import ru.madzi.games.tools.input.InputManager;
+import ru.madzi.games.was.tools.common.ResourceManager;
+import ru.madzi.games.was.tools.graphics.ScreenManager;
+import ru.madzi.games.was.tools.input.InputManager;
 
 /**
  * @author Dmitry Eliseev (deliseev@madzi.ru)

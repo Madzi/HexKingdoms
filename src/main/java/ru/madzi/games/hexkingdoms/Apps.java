@@ -1,7 +1,7 @@
 package ru.madzi.games.hexkingdoms;
 
 import ru.madzi.games.hexkingdoms.stage.Intro;
-import ru.madzi.games.tools.common.Core;
+import ru.madzi.games.was.tools.common.Core;
 
 /**
  * @author Dmitry Eliseev (deliseev@madzi.ru)

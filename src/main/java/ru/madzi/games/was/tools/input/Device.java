@@ -1,4 +1,4 @@
-package ru.madzi.games.tools.input;
+package ru.madzi.games.was.tools.input;
 
 public enum Device {
 
