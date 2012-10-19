@@ -1,9 +1,9 @@
 package ru.madzi.games.hexkingdoms.stage;
 
-import ru.madzi.games.was.tools.common.ResourceManager;
-import ru.madzi.games.was.tools.graphics.ScreenManager;
-import ru.madzi.games.was.tools.input.InputManager;
-import ru.madzi.games.was.tools.stage.Stage;
+import ru.madzi.games.tools.common.ResourceManager;
+import ru.madzi.games.tools.graphics.ScreenManager;
+import ru.madzi.games.tools.input.InputManager;
+import ru.madzi.games.tools.stage.Stage;
 
 /**
  * @author Dmitry Eliseev (deliseev@madzi.ru)
