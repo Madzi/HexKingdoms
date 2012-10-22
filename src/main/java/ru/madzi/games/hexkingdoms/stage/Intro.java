@@ -1,5 +1,10 @@
 package ru.madzi.games.hexkingdoms.stage;
 
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+
+import ru.madzi.games.tools.action.Action;
 import ru.madzi.games.tools.common.ResourceManager;
 import ru.madzi.games.tools.graphics.ScreenManager;
 import ru.madzi.games.tools.input.InputManager;
@@ -10,31 +15,44 @@ import ru.madzi.games.tools.stage.Stage;
  */
 public class Intro implements Stage {
 
+    private Image backscreen;
+
+    private long waitingTime = 5000;
+
+    private Action finish = new Action("Finish");
+
+    private boolean done;
+
     public String getName() {
         return "_intro";
     }
 
     public String checkForStageChange() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return done ? Stage.EXIT : null;
     }
 
     public void loadResources(ResourceManager resourceManager) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        backscreen = resourceManager.loadImage("images/backgame.png");
     }
 
     public void start(InputManager inputManager) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        inputManager.mapToKey(finish, KeyEvent.VK_ESCAPE);
     }
 
     public void stop() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void update(long elapsedTime) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        if (finish.isPressed()) {
+            done = true;
+        }
+        waitingTime -= elapsedTime;
+        if (waitingTime < 0) {
+            done = true;
+        }
     }
 
     public void draw(ScreenManager screenManager) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        screenManager.getGraphics().fillRect(0, 0, 50, 50);
     }
 }

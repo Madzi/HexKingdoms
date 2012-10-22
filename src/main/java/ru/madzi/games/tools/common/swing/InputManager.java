@@ -1,12 +1,14 @@
-package ru.madzi.games.tools.input;
+package ru.madzi.games.tools.common.swing;
 
+import java.awt.Component;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import ru.madzi.games.tools.action.Action;
 
-public class SwingInputManager implements InputManager {
+public class InputManager implements ru.madzi.games.tools.input.InputManager, KeyListener {
 
     private static final String[] MOUSE_NAMES = {
         "Mouse Left",
@@ -23,6 +25,12 @@ public class SwingInputManager implements InputManager {
     private Action[] keyActions;
     private Action[] mouseActions;
     private Action[] joyActions;
+
+    public InputManager(Component component) {
+        keyActions = new Action[KEYBOARD_SIZE];
+        mouseActions = new Action[MOUSE_SIZE];
+        component.addKeyListener(this);
+    }
 
     public void mapToKey(Action action, int keyCode) {
         keyActions[keyCode] = action;
@@ -94,6 +102,29 @@ public class SwingInputManager implements InputManager {
         if (action != null) {
             action.press(Math.abs(amount));
             action.release();
+        }
+    }
+
+    public void keyTyped(KeyEvent e) {
+    }
+
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if (keyCode < KEYBOARD_SIZE) {
+            Action action = keyActions[keyCode];
+            if (action != null) {
+                action.press();
+            }
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if (keyCode < KEYBOARD_SIZE) {
+            Action action = keyActions[keyCode];
+            if (action != null) {
+                action.release();
+            }
         }
     }
 
