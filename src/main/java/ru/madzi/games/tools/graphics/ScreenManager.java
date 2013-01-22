@@ -1,41 +1,77 @@
 package ru.madzi.games.tools.graphics;
 
-import java.awt.DisplayMode;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
 
-import javax.swing.JFrame;
+import ru.madzi.games.tools.config.ConfigManager;
 
-public interface ScreenManager {
+import static org.lwjgl.opengl.GL11.*;
 
-    public DisplayMode[] getCompatibleDisplayModes();
+public class ScreenManager {
 
-    public DisplayMode findFirstCompatibleMode(DisplayMode[] modes);
+    private static final ScreenManager INSTANCE = new ScreenManager();
 
-    public DisplayMode getCurrentDisplayMode();
+    private ScreenManager() {}
 
-    public boolean displayModesMatch(DisplayMode mode1, DisplayMode mode2);
+    public static ScreenManager getInstance() {
+        return INSTANCE;
+    }
 
-    public boolean create(DisplayMode mode);
+    private boolean useSync = false;
 
-    public void setFullscreen(boolean fullscreen);
+    private int syncFps = 100;
 
-    public void setTitle(String title);
+    private long lastFpsTime;
 
-    public Graphics2D getGraphics();
+    private int tempFps = 0;
 
-    public void update();
+    private int fps = 0;
 
-    public JFrame getWindow();
+    private ConfigManager configManager = ConfigManager.getInstance();
 
-    public int getWidth();
+    private String title;
 
-    public int getHeight();
+    public void init() throws LWJGLException {
+        title = configManager.getConfig().getTitle();
+        useSync = configManager.getConfig().isUseSync();
+        syncFps = configManager.getConfig().getSyncFps();
+        Display.setDisplayMode(new DisplayMode(configManager.getConfig().getWidth(), configManager.getConfig().getHeight()));
+        Display.setTitle(title);
+        Display.setFullscreen(configManager.getConfig().isFullscreen());
+        Display.create();
+        glClearColor(0, 0, 0, 0);
+    }
 
-    public String getTitle();
+    public void beforeDraw() {
+        glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    }
 
-    public void destroy();
+    public void afterDraw() {
+        Display.update();
+        if (useSync) {
+            Display.sync(syncFps);
+        }
+        long newFpsTime = Sys.getTime();
+        tempFps++;
+        if (newFpsTime > lastFpsTime + Sys.getTimerResolution()) {
+            fps = tempFps;
+            tempFps = 0;
+            lastFpsTime = newFpsTime;
+        }
+    }
 
-    public BufferedImage createCompatibleImage(int w, int h, int transparency);
+    public int getFps() {
+        return fps;
+    }
+
+    public boolean isDone() {
+        return Display.isCloseRequested();
+    }
+
+    public void stop() {
+        Display.destroy();
+    }
 
 }

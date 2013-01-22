@@ -1,34 +1,88 @@
 package ru.madzi.games.tools.input;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import ru.madzi.games.tools.action.Action;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Keyboard;
 
-public interface InputManager {
+public class InputManager {
 
-    public static final int MOUSE_MOVE_LEFT = 0;
-    public static final int MOUSE_MOVE_RIGHT = 1;
-    public static final int MOUSE_MOVE_UP = 2;
-    public static final int MOUSE_MOVE_DOWN = 3;
-    public static final int MOUSE_WHEEL_UP = 4;
-    public static final int MOUSE_WHEEL_DOWN = 5;
-    public static final int MOUSE_BUTTON_1 = 6;
-    public static final int MOUSE_BUTTON_2 = 7;
-    public static final int MOUSE_BUTTON_3 = 8;
+    private static final InputManager INSTANCE = new InputManager();
 
-    public static final int MOUSE_SIZE = 9;
-    public static final int KEYBOARD_SIZE = 600;
+    private InputManager() {}
 
-    public void mapToKey(Action action, int keyCode);
+    public static InputManager getInstance() {
+        return INSTANCE;
+    }
 
-    public void mapToMouse(Action action, int mouseCode);
+    private Map<Integer, Action> keyActions = new HashMap<Integer, Action>();
 
-    public void clearMap(Action action);
+    public void init() throws LWJGLException {
+        Keyboard.create();
+    }
 
-    public List<String> getMaps(Action action);
+    public void mapToKey(Action action, int code) {
+        keyActions.put(Integer.valueOf(code), action);
+    }
 
-    public void resetAllActions();
+    public void clearMap(Action action) {
+        Iterator<Map.Entry<Integer, Action>> iterator = keyActions.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, Action> entry = iterator.next();
+            if (entry.getValue() == action) {
+                iterator.remove();
+            }
+        }
+        action.reset();
+    }
 
-    public void clearAllMaps();
+    public void clearAllMaps() {
+        keyActions = new HashMap<Integer, Action>();
+    }
+
+    public List<String> getMaps(Action action) {
+        List<String> maps = new ArrayList<String>();
+        for (Map.Entry<Integer, Action> entry : keyActions.entrySet()) {
+            if (entry.getValue() == action) {
+                maps.add(getKeyName(entry.getKey().intValue()));
+            }
+        }
+        return maps;
+    }
+
+    public void resetAllActions() {
+        for (Map.Entry<Integer, Action> entry : keyActions.entrySet()) {
+            entry.getValue().reset();
+        }
+    }
+
+    public Set<Action> getAllActions() {
+        Set<Action> actions = new HashSet<Action>();
+        actions.addAll(keyActions.values());
+        return actions;
+    }
+
+    public String getKeyName(int code) {
+        return Keyboard.getKeyName(code);
+    }
+
+    public void update() {
+        while (Keyboard.next()) {
+            Action action = keyActions.get(Integer.valueOf(Keyboard.getEventKey()));
+            if (action != null) {
+                action.press();
+            }
+        }
+    }
+
+    public void stop() {
+        Keyboard.destroy();
+    }
 
 }
