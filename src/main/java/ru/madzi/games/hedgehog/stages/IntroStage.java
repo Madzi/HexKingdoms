@@ -6,9 +6,15 @@ import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 
+import java.io.IOException;
+
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
+import ru.madzi.games.tools.ResourceManager;
+import ru.madzi.games.tools.graphics.Animation;
+import ru.madzi.games.tools.graphics.Sprite;
+import ru.madzi.games.tools.graphics.Texture;
 import ru.madzi.games.tools.input.Action;
 import ru.madzi.games.tools.input.InputManager;
 import ru.madzi.games.tools.stages.Stage;
@@ -25,6 +31,8 @@ public class IntroStage implements Stage {
     private boolean done;
 
     private long showTime;
+
+    private Sprite background;
 
     private Action finishAction = new Action("finish", Action.Behavior.DETECT_INITIAL_PRESS_ONLY);
 
@@ -47,6 +55,15 @@ public class IntroStage implements Stage {
 
     @Override
     public void loadResources() {
+        Animation animation = new Animation();
+        Texture texture = null;
+        try {
+            texture = ResourceManager.getInstance().getTexture("/images/backgame.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        animation.addFrame(texture, 10);
+        background = new Sprite(animation);
     }
 
     @Override
@@ -59,6 +76,7 @@ public class IntroStage implements Stage {
 
     @Override
     public void draw() {
+        background.draw();
         glRotatef(alpha, 0, 0, 1);
         glBegin(GL_TRIANGLES);
         glVertex3f(-0.5f, -0.5f, 0);

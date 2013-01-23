@@ -29,6 +29,7 @@ public class App extends Engine {
         Stage introStage = new IntroStage();
         StageManager.getInstance().addStage(introStage);
         StageManager.getInstance().addStage(new MenuStage());
+        introStage.loadResources();
         StageManager.getInstance().setStage(introStage.getName());
     }
 
