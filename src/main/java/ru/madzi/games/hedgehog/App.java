@@ -1,6 +1,7 @@
 package ru.madzi.games.hedgehog;
 
 import ru.madzi.games.hedgehog.stages.IntroStage;
+import ru.madzi.games.hedgehog.stages.MenuStage;
 import ru.madzi.games.tools.Engine;
 import ru.madzi.games.tools.config.Config;
 import ru.madzi.games.tools.config.ConfigManager;
@@ -27,6 +28,7 @@ public class App extends Engine {
     public void initStages() {
         Stage introStage = new IntroStage();
         StageManager.getInstance().addStage(introStage);
+        StageManager.getInstance().addStage(new MenuStage());
         StageManager.getInstance().setStage(introStage.getName());
     }
 

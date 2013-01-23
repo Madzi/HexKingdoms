@@ -16,22 +16,26 @@ import ru.madzi.games.tools.stages.StageManager;
 
 public class IntroStage implements Stage {
 
+    public static final String NAME = "_intro";
+
     private static final long SHOW_TIME = 5 * Sys.getTimerResolution();
+
+    private float alpha = 0f;
 
     private boolean done;
 
     private long showTime;
 
-    private Action finishAction = new Action("finish");
+    private Action finishAction = new Action("finish", Action.Behavior.DETECT_INITIAL_PRESS_ONLY);
 
     @Override
     public String getName() {
-        return "_intro";
+        return NAME;
     }
 
     @Override
     public String getNextStageName() {
-        return done ? StageManager.EXIT : null;
+        return done ? MenuStage.NAME : null;
     }
 
     @Override
@@ -47,6 +51,7 @@ public class IntroStage implements Stage {
 
     @Override
     public void update(long elapsedTime) {
+        alpha += 0.1;
         showTime += elapsedTime;
         done = showTime > SHOW_TIME;
         done = done || finishAction.isPressed();
@@ -54,7 +59,7 @@ public class IntroStage implements Stage {
 
     @Override
     public void draw() {
-        glRotatef(0.6f, 0, 0, 1);
+        glRotatef(alpha, 0, 0, 1);
         glBegin(GL_TRIANGLES);
         glVertex3f(-0.5f, -0.5f, 0);
         glVertex3f(0.5f, -0.5f, 0);
