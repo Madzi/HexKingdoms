@@ -22,6 +22,8 @@ public abstract class Engine {
 
     public abstract void configure();
 
+    public abstract void initGL();
+
     public abstract void initStages();
 
     public void run() {
@@ -41,6 +43,7 @@ public abstract class Engine {
             e.printStackTrace();
             //TODO: LOG & EXIT
         }
+        initGL();
         initStages();
         done = false;
     }

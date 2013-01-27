@@ -3,6 +3,8 @@ package ru.madzi.games.tools.graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.opengl.Texture;
+
 public class Animation {
 
     private List<AnimFrame> frames;

@@ -2,7 +2,7 @@ package ru.madzi.games.hedgehog.stages;
 
 import ru.madzi.games.tools.stages.Stage;
 
-public class Analisys implements Stage {
+public class AnalisysStage implements Stage {
 
     public static final String NAME = "_analisys";
 

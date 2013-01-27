@@ -1,7 +1,11 @@
 package ru.madzi.games.hedgehog.stages;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.opengl.Texture;
 
+import ru.madzi.games.tools.ResourceManager;
+import ru.madzi.games.tools.graphics.Animation;
+import ru.madzi.games.tools.graphics.Sprite;
 import ru.madzi.games.tools.input.Action;
 import ru.madzi.games.tools.input.InputManager;
 import ru.madzi.games.tools.stages.Stage;
@@ -13,7 +17,27 @@ public class MenuStage implements Stage {
 
     private Action finishAction = new Action("finish", Action.Behavior.DETECT_INITIAL_PRESS_ONLY);
 
+    private Action selectAction = new Action("select");
+
+    private Action upAction = new Action("up");
+
+    private Action downAction = new Action("down");
+
     private boolean done;
+
+    private Sprite background;
+
+    private Sprite logo;
+
+    private Sprite cursor;
+
+    private Sprite nameMenu;
+
+    private Sprite gameMenu;
+
+    private Sprite optsMenu;
+
+    private Sprite exitMenu;
 
     @Override
     public String getName() {
@@ -28,13 +52,20 @@ public class MenuStage implements Stage {
     @Override
     public void start() {
         done = false;
-        InputManager.getInstance().mapToKey(finishAction, Keyboard.KEY_ESCAPE);
+        InputManager inputManager = InputManager.getInstance();
+        inputManager.mapToKey(finishAction, Keyboard.KEY_ESCAPE);
+        inputManager.mapToKey(selectAction, Keyboard.KEY_SPACE);
+        inputManager.mapToKey(upAction, Keyboard.KEY_UP);
+        inputManager.mapToKey(downAction, Keyboard.KEY_DOWN);
     }
 
     @Override
     public void loadResources() {
-        // TODO Auto-generated method stub
-
+        Texture texture = ResourceManager.getInstance().loadTexture("images//8backscreen.png");
+        Animation animation = new Animation();
+        animation.addFrame(texture, 10000);
+        background = new Sprite(animation);
+        
     }
 
     @Override
@@ -44,8 +75,7 @@ public class MenuStage implements Stage {
 
     @Override
     public void draw() {
-        // TODO Auto-generated method stub
-
+        background.draw();
     }
 
     @Override

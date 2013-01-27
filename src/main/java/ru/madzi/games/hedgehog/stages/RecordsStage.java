@@ -1,10 +1,16 @@
 package ru.madzi.games.hedgehog.stages;
 
+import ru.madzi.games.tools.graphics.Sprite;
+import ru.madzi.games.tools.input.Action;
 import ru.madzi.games.tools.stages.Stage;
 
 public class RecordsStage implements Stage {
 
     public static final String NAME = "_records";
+
+    private Action selectAction = new Action("select");
+
+    private Sprite background;
 
     @Override
     public String getName() {

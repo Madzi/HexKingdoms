@@ -76,7 +76,11 @@ public class InputManager {
         while (Keyboard.next()) {
             Action action = keyActions.get(Integer.valueOf(Keyboard.getEventKey()));
             if (action != null) {
-                action.press();
+                if (Keyboard.getEventKeyState()) {
+                    action.press();
+                } else {
+                    action.release();
+                }
             }
         }
     }

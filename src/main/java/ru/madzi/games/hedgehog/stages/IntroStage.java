@@ -1,6 +1,6 @@
 package ru.madzi.games.hedgehog.stages;
 
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glRotatef;
@@ -10,11 +10,12 @@ import java.io.IOException;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.opengl.Texture;
 
 import ru.madzi.games.tools.ResourceManager;
+import ru.madzi.games.tools.config.ConfigManager;
 import ru.madzi.games.tools.graphics.Animation;
 import ru.madzi.games.tools.graphics.Sprite;
-import ru.madzi.games.tools.graphics.Texture;
 import ru.madzi.games.tools.input.Action;
 import ru.madzi.games.tools.input.InputManager;
 import ru.madzi.games.tools.stages.Stage;
@@ -33,6 +34,8 @@ public class IntroStage implements Stage {
     private long showTime;
 
     private Sprite background;
+
+    private Sprite pause;
 
     private Action finishAction = new Action("finish", Action.Behavior.DETECT_INITIAL_PRESS_ONLY);
 
@@ -55,15 +58,17 @@ public class IntroStage implements Stage {
 
     @Override
     public void loadResources() {
+        int width = ConfigManager.getInstance().getConfig().getWidth();
+        int height = ConfigManager.getInstance().getConfig().getHeight();
         Animation animation = new Animation();
-        Texture texture = null;
-        try {
-            texture = ResourceManager.getInstance().getTexture("/images/backgame.png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        animation.addFrame(texture, 10);
+        Texture texture = ResourceManager.getInstance().loadTexture("images//8backtest.png");
+        animation.addFrame(texture, 10000);
         background = new Sprite(animation);
+        animation = new Animation();
+        texture = ResourceManager.getInstance().loadTexture("images//8pause.png");
+        animation.addFrame(texture, 10000);
+        pause = new Sprite(animation);
+        pause.setX((width - texture.getImageWidth()) / 2).setY((height - texture.getImageHeight()) / 2);
     }
 
     @Override
@@ -77,12 +82,7 @@ public class IntroStage implements Stage {
     @Override
     public void draw() {
         background.draw();
-        glRotatef(alpha, 0, 0, 1);
-        glBegin(GL_TRIANGLES);
-        glVertex3f(-0.5f, -0.5f, 0);
-        glVertex3f(0.5f, -0.5f, 0);
-        glVertex3f(0, 0.5f, 0);
-        glEnd();
+        pause.draw();
     }
 
     @Override

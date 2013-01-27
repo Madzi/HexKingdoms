@@ -1,6 +1,16 @@
 package ru.madzi.games.tools.graphics;
 
+import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glColor3f;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.glVertex2f;
 
+import org.newdawn.slick.opengl.Texture;
 
 public class Sprite {
 
@@ -69,7 +79,21 @@ public class Sprite {
     public void draw() {
         Texture texture = animation.getTexture();
         if (texture != null) {
-            texture.draw(x, y);
+            glPushMatrix();
+            texture.bind();
+            glTranslatef(x, y, 0);
+            glColor3f(1, 1, 1);
+            glBegin(GL_QUADS);
+            glTexCoord2f(0, 0);
+            glVertex2f(0, 0);
+            glTexCoord2f(0, texture.getHeight());
+            glVertex2f(0, texture.getImageHeight());
+            glTexCoord2f(texture.getWidth(), texture.getHeight());
+            glVertex2f(texture.getImageWidth(), texture.getImageHeight());
+            glTexCoord2f(texture.getWidth(), 0);
+            glVertex2f(texture.getImageWidth(), 0);
+            glEnd();
+            glPopMatrix();
         }
     }
 
