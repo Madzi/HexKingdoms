@@ -3,7 +3,10 @@ package ru.madzi.games.hedgehog.stages;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.opengl.Texture;
 
+import ru.madzi.games.hedgehog.tools.Resources;
 import ru.madzi.games.tools.ResourceManager;
+import ru.madzi.games.tools.config.Config;
+import ru.madzi.games.tools.config.ConfigManager;
 import ru.madzi.games.tools.graphics.Animation;
 import ru.madzi.games.tools.graphics.Sprite;
 import ru.madzi.games.tools.input.Action;
@@ -39,6 +42,10 @@ public class MenuStage implements Stage {
 
     private Sprite exitMenu;
 
+    private Config config = ConfigManager.getInstance().getConfig();
+
+    private ResourceManager resourceManager = ResourceManager.getInstance();
+
     @Override
     public String getName() {
         return NAME;
@@ -53,19 +60,54 @@ public class MenuStage implements Stage {
     public void start() {
         done = false;
         InputManager inputManager = InputManager.getInstance();
-        inputManager.mapToKey(finishAction, Keyboard.KEY_ESCAPE);
-        inputManager.mapToKey(selectAction, Keyboard.KEY_SPACE);
-        inputManager.mapToKey(upAction, Keyboard.KEY_UP);
-        inputManager.mapToKey(downAction, Keyboard.KEY_DOWN);
+        inputManager.mapToKey(finishAction, config.getKeyEsc());
+        inputManager.mapToKey(selectAction, config.getKeyFire());
+        inputManager.mapToKey(upAction, config.getKeyUp());
+        inputManager.mapToKey(downAction, config.getKeyDown());
     }
 
     @Override
     public void loadResources() {
-        Texture texture = ResourceManager.getInstance().loadTexture("images//8backscreen.png");
         Animation animation = new Animation();
+        Texture texture = resourceManager.loadTexture(Resources.IMAGE_MENU_BACKGROUND);
         animation.addFrame(texture, 10000);
         background = new Sprite(animation);
-        
+
+        animation = new Animation();
+        texture = resourceManager.loadTexture(Resources.IMAGE_MENU_LOGO);
+        animation.addFrame(texture, 10000);
+        logo = new Sprite(animation);
+        //TODO: calc coords
+
+        animation = new Animation();
+        texture = resourceManager.loadTexture(Resources.IMAGE_MENU_CURSOR);
+        animation.addFrame(texture, 10000);
+        cursor = new Sprite(animation);
+        //TODO: calc coords
+
+        animation = new Animation();
+        texture = resourceManager.loadTexture(Resources.IMAGE_MENU_NAME);
+        animation.addFrame(texture, 10000);
+        nameMenu = new Sprite(animation);
+        //TODO: calc coords
+
+        animation = new Animation();
+        texture = resourceManager.loadTexture(Resources.IMAGE_MENU_GAME);
+        animation.addFrame(texture, 10000);
+        gameMenu = new Sprite(animation);
+        //TODO: calc coords
+
+        animation = new Animation();
+        texture = resourceManager.loadTexture(Resources.IMAGE_MENU_OPTION);
+        animation.addFrame(texture, 10000);
+        optsMenu = new Sprite(animation);
+        //TODO: calc coords
+
+        animation = new Animation();
+        texture = resourceManager.loadTexture(Resources.IMAGE_MENU_EXIT);
+        animation.addFrame(texture, 10000);
+        exitMenu = new Sprite(animation);
+        //TODO: calc coords
     }
 
     @Override
@@ -76,6 +118,12 @@ public class MenuStage implements Stage {
     @Override
     public void draw() {
         background.draw();
+        logo.draw();
+        nameMenu.draw();
+        gameMenu.draw();
+        optsMenu.draw();
+        exitMenu.draw();
+        cursor.draw();
     }
 
     @Override
