@@ -18,21 +18,18 @@ public class App extends Engine {
 
     @Override
     public void configure() {
-        ConfigManager.getInstance().setConfig(new Config());
-        ConfigManager
-            .getInstance()
-            .getConfig()
+        configManager.setConfig(new Config()
             .setWidth(800)
             .setHeight(600)
             .setTitle("TEST")
             .setFullscreen(false)
             .setUseSync(true)
-            .setSyncFps(100);
+            .setSyncFps(100));
     }
 
     @Override
     public void initGL() {
-        Config config = ConfigManager.getInstance().getConfig();
+        Config config = configManager.getConfig();
         glEnable(GL_TEXTURE_2D);
         glClearColor(0f, 0f, 0f, 0f);
         glEnable(GL_BLEND);
