@@ -1,7 +1,15 @@
 package ru.madzi.games.hedgehog.stages;
 
+import org.newdawn.slick.opengl.Texture;
+
+import ru.madzi.games.hedgehog.tools.Resources;
+import ru.madzi.games.tools.ResourceManager;
+import ru.madzi.games.tools.config.Config;
+import ru.madzi.games.tools.config.ConfigManager;
+import ru.madzi.games.tools.graphics.Animation;
 import ru.madzi.games.tools.graphics.Sprite;
 import ru.madzi.games.tools.input.Action;
+import ru.madzi.games.tools.input.InputManager;
 import ru.madzi.games.tools.stages.Stage;
 
 public class RecordsStage implements Stage {
@@ -10,7 +18,13 @@ public class RecordsStage implements Stage {
 
     private Action selectAction = new Action("select");
 
+    private boolean done;
+
     private Sprite background;
+
+    private Config config = ConfigManager.getInstance().getConfig();
+
+    private ResourceManager resourceManager = ResourceManager.getInstance();
 
     @Override
     public String getName() {
@@ -19,19 +33,22 @@ public class RecordsStage implements Stage {
 
     @Override
     public String getNextStageName() {
-        // TODO Auto-generated method stub
-        return null;
+        return done ? MenuStage.NAME : null;
     }
 
     @Override
     public void start() {
-        // TODO Auto-generated method stub
-
+        done = false;
+        InputManager inputManager = InputManager.getInstance();
+        inputManager.mapToKey(selectAction, config.getKeyFire());
     }
 
     @Override
     public void loadResources() {
-        // TODO Auto-generated method stub
+        Animation animation = new Animation();
+        Texture texture = resourceManager.loadTexture(Resources.IMAGE_RECORDS_BACKGROUND);
+        animation.addFrame(texture, 10000);
+        background = new Sprite(animation);
 
     }
 
@@ -43,8 +60,7 @@ public class RecordsStage implements Stage {
 
     @Override
     public void draw() {
-        // TODO Auto-generated method stub
-
+        background.draw();
     }
 
     @Override

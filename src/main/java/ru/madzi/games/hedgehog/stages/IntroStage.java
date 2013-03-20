@@ -1,7 +1,6 @@
 package ru.madzi.games.hedgehog.stages;
 
 import org.lwjgl.Sys;
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.opengl.Texture;
 
 import ru.madzi.games.hedgehog.tools.Resources;

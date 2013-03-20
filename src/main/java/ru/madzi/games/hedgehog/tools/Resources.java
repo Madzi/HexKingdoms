@@ -20,4 +20,6 @@ public interface Resources {
 
     public static final String IMAGE_MENU_EXIT = "images//menu_exit.png";
 
+    public static final String IMAGE_RECORDS_BACKGROUND = "images//records_background.png";
+
 }

@@ -1,6 +1,5 @@
 package ru.madzi.games.hedgehog.stages;
 
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.opengl.Texture;
 
 import ru.madzi.games.hedgehog.tools.Resources;
@@ -41,6 +40,8 @@ public class MenuStage implements Stage {
     private Sprite optsMenu;
 
     private Sprite exitMenu;
+
+    private int curPos = 0;
 
     private Config config = ConfigManager.getInstance().getConfig();
 
@@ -113,6 +114,12 @@ public class MenuStage implements Stage {
     @Override
     public void update(long elapsedTime) {
         done = finishAction.isPressed();
+        if (upAction.isPressed()) {
+            curPos = (curPos + 3) % 4;
+        }
+        if (downAction.isPressed()) {
+            curPos = (curPos + 1) % 4;
+        }
     }
 
     @Override

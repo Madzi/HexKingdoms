@@ -1,7 +1,18 @@
 package ru.madzi.games.hedgehog;
 
-import static org.lwjgl.opengl.GL11.*;
-
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.glViewport;
 import ru.madzi.games.hedgehog.stages.AnalisysStage;
 import ru.madzi.games.hedgehog.stages.GameStage;
 import ru.madzi.games.hedgehog.stages.IntroStage;
@@ -10,7 +21,6 @@ import ru.madzi.games.hedgehog.stages.RecordsStage;
 import ru.madzi.games.hedgehog.stages.SetupStage;
 import ru.madzi.games.tools.Engine;
 import ru.madzi.games.tools.config.Config;
-import ru.madzi.games.tools.config.ConfigManager;
 import ru.madzi.games.tools.stages.Stage;
 import ru.madzi.games.tools.stages.StageManager;
 
